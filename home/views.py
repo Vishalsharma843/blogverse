@@ -1,16 +1,17 @@
 from django.http import  HttpResponseRedirect
 from django.shortcuts import render, redirect
-from .forms import RegistrationForm , EditedPassChangeForm,CreatePostForm
+from .forms import  RegistrationForm , EditedPassChangeForm,CreatePostForm
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login,logout , update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404 
-from .models import Contents, Comment, MsgFromAdmin, SayToMe, UserProfile, Category
+from .models import Contents, Comment, MsgFromAdmin, SayToMe, UserProfile, Category, MusicOfDay
 from django.db.utils import IntegrityError
 from django.db import models
-from django.utils.html import strip_tags
+from django.http import JsonResponse
+
 
 def home(request):
     # # print the first title from DB
@@ -67,7 +68,7 @@ def home(request):
         post.total_comments = Comment.objects.filter(content=post).count()
 
         # ---------LOGIC To see get the PURE description and calculate time ----------
-        descript_text = strip_tags(post.descript)
+        descript_text = post.descript
         lenis = descript_text.replace(' ', '')
         # print(lenis)
         to_read = str((len(lenis) * (15/100)/60)).split('.')
@@ -100,12 +101,21 @@ def home(request):
     except:
         mymsg = []
 
+    try:
+        mymsg = list(MsgFromAdmin.objects.all()[:2])
+    except:
+        mymsg = []
+
+    # Fetch Music of the Day
+    music_of_day = MusicOfDay.objects.first()
+
     home_content = {
         "page_obj": page_obj,
         "categories": e_d,
         "top_posts": top_posts,
         "headlinetoday": mymsg[0] if mymsg else None,
         "msgtwo": mymsg[1] if len(mymsg) > 1 else None,
+        "music_of_day": music_of_day,
     }
 
 
@@ -255,10 +265,31 @@ def dynamic_option(request, option):
         return render(request, 'index.html')  # Handle invalid options
 
 # like, dislike 
+def like_article(request, article_slug):
+    try:
+        if request.method == 'POST' and request.is_ajax():
+            article = Contents.objects.get(slug=article_slug)
+            article.likes += 1
+            article.save()
+            return JsonResponse({'likes': article.likes})
+    except Contents.DoesNotExist:
+        return JsonResponse({'error': 'Article not found'}, status=404)
+    except Exception as e:
+        return JsonResponse({'error': 'An error occurred 22'}, status=500)
+
 def artical_view(request, the_artical):
+    if request.method == 'POST' and 'like_article' in request.POST:
+        try:
+            article = get_object_or_404(Contents, slug=the_artical)
+            article.likes += 1
+            article.save()
+            return JsonResponse({'likes': article.likes})
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
+
     content = get_object_or_404(Contents, slug=the_artical)
     # logic for read time 
-    descript_text = strip_tags(content.descript)
+    descript_text = content.descript
     lenis = descript_text.replace(' ', '')
     # ------------ print(len(timeneed))
     # 100 --- 15s
@@ -460,7 +491,3 @@ def f404(request, slg):
     else:
         return render(request, '404.html', status=404)
     
-# Below all are temprory for checking purpose
-
-
-# This is old Edit post function, 

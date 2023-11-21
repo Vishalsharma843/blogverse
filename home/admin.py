@@ -1,12 +1,18 @@
 from django.contrib import admin
-from .models import Contents ,Category , Comment, MsgFromAdmin, SayToMe, UserProfile
+from .models import Contents ,Category , Comment, MsgFromAdmin, SayToMe, UserProfile, MusicOfDay
+from django.utils import timezone
+from datetime import timedelta
 # Register your models here.
 
+
+@admin.register(MusicOfDay)
+class MusicOfDayAdmin(admin.ModelAdmin):
+    list_display = ('slug', 'image',)
 @admin.register(Contents)
 class SeeContents(admin.ModelAdmin):
-    list_display = ['user','title','uploaded_at','updated_at','category','likes','dislikes','views','descript','picture','slug',]
+    list_display = ['user','slug','title','uploaded_at','updated_at','category','likes','dislikes','views','descript','picture','slug',]
     # fields='__all__'
-
+# Register the model with the custom admin class
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
@@ -25,3 +31,4 @@ class UserSayToMe(admin.ModelAdmin):
 
 
 admin.site.register(MsgFromAdmin)
+

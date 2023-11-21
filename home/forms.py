@@ -1,8 +1,18 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
-from .models import Category, Contents
+from .models import Category, Contents, MusicOfDay
 
+
+class MusicOfDayForm(forms.ModelForm):
+    class Meta:
+        model = MusicOfDay
+        fields = ['slug', 'image']
+
+        widgets = {
+            'slug': forms.TextInput(attrs={'class': 'form-control'}),
+            'image': forms.FileInput(attrs={'class': 'form-control'}),
+        }
 
 
 class RegistrationForm(UserCreationForm):

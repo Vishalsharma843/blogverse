@@ -24,7 +24,7 @@ body{
 
 .wrapper .header .top,
 .wrapper .signup{
-	background: url('../image/bg.png');
+	/* background: url('../image/bg.png'); */
 	/* background: url('https://picsum.photos/200/400'); */
     border: 1px solid #33d6ff;
     border-radius: 1px;

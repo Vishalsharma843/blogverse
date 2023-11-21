@@ -3,6 +3,7 @@ from django.urls import path, re_path
 from django.conf import settings
 from django.conf.urls.static import static
 from home import views
+from django.urls import include, path
 
 
 
@@ -20,16 +21,7 @@ urlpatterns = [
     path('dashboard/your_posts/<slug:key>/', views.edit_post, name='edit_post'),
     path('delete_post/<slug:slug>/', views.delete_post, name='delete_post'),
     path('dashboard/your_posts/', views.your_posts, name='your_posts'),
-    
-
-
-# -------- Not 404 hanlder But showing 404 by redirecting to 404 if none of page clicked here -------
-    # path('404/', views.f404, name= "404"),
-    # re_path(r'^.*$', RedirectView.as_view(url='/404/')),
-
-# ------------------------------------------------------------------------------
-
-
+    path('like/<slug:article_slug>/', views.like_article, name='like_article'),
 
 ]
 

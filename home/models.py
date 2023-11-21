@@ -3,7 +3,19 @@ from django.db import models
 from django.contrib.auth.models import User
 from .backend import custom_slugify
 from ckeditor.fields import RichTextField
+from django.urls import reverse
 
+class MusicOfDay(models.Model):
+    slug = models.SlugField(max_length=300, unique=True, null=True, blank=True, default='')
+    image = models.ImageField(upload_to="music_images/", null=True, default='no_image.png')
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = custom_slugify(self.image.name)
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f"Music of the Day: {self.slug}"
 class Category(models.Model):
     name = models.CharField(max_length=50)
 
@@ -22,6 +34,7 @@ class Contents(models.Model):
     likes = models.PositiveIntegerField(default=0)
     dislikes = models.PositiveIntegerField(default=0)
     views = models.PositiveIntegerField(default=0)
+    article_of_the_day = models.BooleanField(default=False)  # New field
 
     def save(self, *args, **kwargs):
         if not self.slug:  
@@ -30,6 +43,8 @@ class Contents(models.Model):
 
     def __str__(self):
         return self.title
+
+    
 
 class Comment(models.Model):
     content = models.ForeignKey(Contents, on_delete=models.CASCADE)
@@ -57,3 +72,5 @@ class SayToMe(models.Model):
 
 class MsgFromAdmin(models.Model):
     mymsg = models.CharField(max_length=500, null=True, blank=True)
+
+
