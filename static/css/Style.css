@@ -105,7 +105,9 @@
     margin-left: 2vw;
 }
 
-
+.blog-post{
+    margin-left: 5vw;
+}
 
 .card1{
     width: 20vw;
@@ -119,6 +121,7 @@
     margin-right: 15px;
     padding-bottom: 2vw;
     min-height: 20vw;
+    margin
 }
 
 .card1 content{
@@ -197,10 +200,13 @@
 
 
 @media only screen and (max-width: 720px) {
+    .blog-post{
+        margin-left: 0vw;
+    }
     .card1{
         width: 80vw;
-        margin-left: 17vw;
-        margin-right:17vw;
+        margin-left: 10vw;
+        margin-right:10vw;
     }
     .thumbnail1 {
         width: 100%;
@@ -378,8 +384,8 @@ p{
 .banner{
     height: 50vh;
     width: 60vw;
-    margin: 0vw 20vw 0vw 20vw;
-    background-color: #000;
+    margin: 0vw 25vw 0vw 25vw;
+    background-color: #00000000;
 }
 
 .banner-link{
@@ -387,25 +393,37 @@ p{
 }
 .banner-image{
    height: 50vh;
+   width: 50vw;
     background: contain no-repeat;
+    position: absolute;
+    z-index: 1;
 
 }
 .music-heading{
     text-align: center;
-    color: #daa701;
+    color: #000000;
     font-size: 4vw;
     border: none;
+    z-index: 3;
+    position: absolute;
+    margin-left: 5vw;
+    margin-right: 5vw;
+    text-decoration: none;
+    text-shadow: -1px -1px 0 #ffffff, 1px -1px 0 #ffffff, -1px 1px 0 #ffffff, 1px 1px 0 #ffffff;
+
+
 }
 @media only screen and (max-width: 700px) {
     .banner{
         height: 20vh;
         width: 80vw;
-        margin: 0vw 10vw 0vw 10vw;
+        margin: 0vw 10vw 15vw 10vw;
     }
     .banner-image{
-        height: 20vh;
-         background: contain no-repeat;
-     
+        height: 30vh;
+        width:80vw;
+        background: contain no-repeat;
+        
      }
   }
 
@@ -430,7 +448,7 @@ p{
     top: 0%;
     width: 100% !important;
     cursor: pointer;
-    display: none;
+    /*display: none;*/
 }
 @media only screen and (max-width: 720px){
     .toggle-collapse{
@@ -781,6 +799,16 @@ main .post-content .post-title a{
     display: flex;
     justify-content: space-between;
 }
+@media (max-width: 768px) {
+    .site-content > .sidebar .category-list{
+        margin:0vw 10vw 0vw 10vw;   
+    }
+    .site-content > .sidebar .category-list .list-items{
+      
+        width: 70%;
+       
+    }
+}
 
 .site-content > .sidebar .category-list .list-items a{
     color:  black;
@@ -860,7 +888,8 @@ footer.footer{
 }
 
 footer.footer .container{
-    display: grid;
+    display: flex;
+    flex-direction: row;
     /*grid-template-columns: repeat(3, 1fr);*/
 }
 

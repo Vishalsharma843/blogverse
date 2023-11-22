@@ -294,9 +294,9 @@
   {% if music_of_day %}
   <div class="banner">
       <a class="banner-link" href="{% url 'artical' music_of_day.slug %}">
-        <div class="banner-image" style="background-image: url({{music_of_day.image.url}}); ">
-          <h2 class="music-heading">Music of the Day</h2>
-        </div>
+        <img class="banner-image" src="{{music_of_day.image.url}}">
+        </img>
+        <h2 class="music-heading">𝓜𝓾𝓼𝓲𝓬 𝓸𝓯 𝓽𝓱𝓮 𝓓𝓪𝔂</h2>
       </a>
   </div>
   {% endif %}
@@ -311,7 +311,7 @@
   
 
       
-        <button class="my-button btn font-medium" >Explore</button>
+       <a href="#recent-post"> <button class="my-button btn font-medium"  >Explore</button></a>
     
   </section>
 
@@ -352,8 +352,8 @@
                   </div>
 
                   <div class="owl-navigation" style="margin-top : 50px;">
-                      <span class="owl-nav-prev"><i class="fas fa-long-arrow-alt-left"></i></span>
-                      <span class="owl-nav-next"><i class="fas fa-long-arrow-alt-right"></i></span>
+                      <div class="owl-nav-prev"><i class="fas fa-long-arrow-alt-left"></i></div>
+                      <div class="owl-nav-next"><i class="fas fa-long-arrow-alt-right"></i></div>
                   </div>
         </div>
       </div>
@@ -365,7 +365,7 @@
           <div class="site-content">
               <div class="posts">
 
-                  <h2>Recent Posts</h2>
+                  <h2 style="margin-left: 5vw;">Recent Posts</h2>
 
                   <div class="card-container">
                     {% for content in page_obj %}

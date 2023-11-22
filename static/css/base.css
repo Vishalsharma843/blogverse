@@ -11,7 +11,7 @@
     --bg-primary: hsl(195, 20%, 86%);
     --border-clr: hsl(195, 16%, 82%);
     --accent-blue: hsl(205, 100%, 48%);
-    --text-primary: hsl(180, 6%, 38%);
+    --text-primary: hsl(0, 0%, 100%);
     --text-accent: hsl(195, 2%, 78%);
 
     --header: 3.5rem;
@@ -93,10 +93,15 @@ a {
 .brand-logo > svg {
     fill: var(--brand-clr);
 }
-
+@media (min-width: 768px) {
+    .logo-text{
+        width:2vw;
+    }
+    
+}
 .logo-text {
     color: var(--text-primary);
-    font-size: 20px;
+    font-size: 5vw;
     font-weight: 500;
 }
 
@@ -111,9 +116,9 @@ a {
     cursor: pointer;
 }
 
-.nav-toggle:active {
+/* .nav-toggle:active {
     scale: 0.9;
-}
+} */
 
 .toggle--icon {
     width: 1.5rem;
@@ -155,6 +160,7 @@ a {
     grid-auto-rows: 2.25rem;
     /* margin-top: 2vw; */
     margin-top: 2vw;
+    z-index: 5;
 
 }
 
@@ -224,9 +230,7 @@ a {
 }
 
 @media (max-width: 720px) {
-    .header-content--left > * {
-        scale: 0.83;
-    }
+    
     .nav__list {
         width: calc(var(--full-width) - (var(--space-1) * 2));
     }
